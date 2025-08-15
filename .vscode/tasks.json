@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Build LMS Project",
+			"type": "shell",
+			"command": "dotnet build",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "build"
+		},
+		{
+			"label": "Run LMS Project",
+			"type": "shell",
+			"command": "dotnet run",
+			"problemMatcher": [
+				"$msCompile"
+			],
+			"group": "test"
+		}
+	]
+}

@@ -1,0 +1,10 @@
+@{
+    ViewBag.Title = "Lesson Details";
+}
+<h2>Lesson Details</h2>
+<p>Title: @ViewBag.Title</p>
+<video width="640" height="360" controls>
+    <source src="@ViewBag.VideoUrl" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+<a href="/Quiz/Take/@ViewBag.LessonId">Take Quiz</a>

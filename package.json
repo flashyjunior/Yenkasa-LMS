@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "jwt-decode": "^4.0.0",
+    "react-icons": "^5.5.0"
+  },
+  "proxy": "http://localhost:5124",
+  "devDependencies": {
+    "@types/jwt-decode": "^2.2.1"
+  }
+}
