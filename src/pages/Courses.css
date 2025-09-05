@@ -1,0 +1,62 @@
+.courses-list-enhanced {
+  padding: 2rem;
+}
+.courses-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+.course-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07);
+  padding: 1.5rem;
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.2s;
+}
+.course-card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+}
+.course-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+.course-desc {
+  color: #444;
+  margin-bottom: 1rem;
+}
+.details-btn {
+  background: #00bfae;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.2rem;
+  text-decoration: none;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+  display: inline-block;
+  transition: background 0.2s;
+}
+.details-btn:hover {
+  background: #009e8e;
+}
+.course-reviews {
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  margin-top: 0.5rem;
+  font-size: 0.97rem;
+}
+.course-reviews ul {
+  margin: 0.5rem 0 0 0;
+  padding: 0 0 0 1.2rem;
+}
+.course-reviews li {
+  margin-bottom: 0.3rem;
+}

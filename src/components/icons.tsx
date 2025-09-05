@@ -1,0 +1,12 @@
+import React from 'react';
+export const DashboardIcon = () => <span role="img" aria-label="dashboard">📊</span>;
+export const CoursesIcon = () => <span role="img" aria-label="courses">📚</span>;
+export const LessonsIcon = () => <span role="img" aria-label="lessons">🎬</span>;
+export const QuizzesIcon = () => <span role="img" aria-label="quizzes">📝</span>;
+export const ProfileIcon = () => <span role="img" aria-label="profile">👤</span>;
+export const AdminIcon = () => <span role="img" aria-label="admin">🛠️</span>;
+export const HistoryIcon = () => <span role="img" aria-label="history">📈</span>;
+export const CompletedIcon = () => <span role="img" aria-label="completed">✅</span>;
+export const LogoutIcon = () => <span role="img" aria-label="logout">🚪</span>;
+export const CreateIcon = () => <span role="img" aria-label="create">➕</span>;
+export { FaChartBar, FaHistory, FaBolt, FaBookOpen, FaUser } from 'react-icons/fa';
