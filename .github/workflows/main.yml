@@ -17,7 +17,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '9.0' # Change if using a different .NET version
+          dotnet-version: '9.0.0' # Change if using a different .NET version
 
       - name: Restore dependencies
         run: dotnet restore ./LMS.csproj
