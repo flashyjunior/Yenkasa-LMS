@@ -1,0 +1,31 @@
+/* Styles for CourseDetail page (small, local scope) */
+.course-detail-container {
+  /* rely on global layout (.main-content) to reserve space for the fixed sidebar */
+  margin: 0;
+  padding: 24px;
+  color: #111827;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+.course-meta-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+  color: #6b7280;
+  font-size: 0.95rem;
+}
+.course-hero { margin-bottom: 12px; }
+.lessons-section { margin-top: 18px; }
+.lessons-list { list-style: none; padding: 0; margin: 8px 0 0 0; display: grid; gap: 8px; }
+.lessons-list li { padding: 10px 12px; border-radius: 8px; background: #fff; box-shadow: 0 1px 6px rgba(2,6,23,0.04); transition: transform 150ms ease, box-shadow 150ms ease; }
+.lessons-list li:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(2,6,23,0.06); }
+.lessons-list a { color: #00bfae; text-decoration: none; font-weight: 600; display: inline-block; }
+.lesson-meta { color: #6b7280; margin-left: 8px; font-size: 0.9rem; }
+.materials-list { list-style: none; padding: 0; margin: 8px 0 0 0; }
+.materials-list li { padding: 8px 0; display:flex; gap:8px; align-items:center; }
+.materials-list button { background: none; border: none; color: #00bfae; text-decoration: underline; cursor: pointer; padding: 0; }
+.course-cta { width: 340px; }
+
+/* keyboard accessible focus for lesson items */
+.lessons-list a:focus { outline: 3px solid rgba(59,130,246,0.12); border-radius: 6px; }

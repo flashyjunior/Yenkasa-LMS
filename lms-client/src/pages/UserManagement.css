@@ -1,0 +1,452 @@
+.user-management {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem 16px;
+  /* make the user-management panel span the available content width similar to the navbar */
+  max-width: none;
+  width: calc(100% - 32px);
+  margin: 1rem 16px;
+  box-shadow: none; /* removed card shadow to "remove the card" */
+}
+.root, :root {
+  --um-primary: #5146D8;
+}
+.user-management h2 {
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #2d3748;
+}
+/* keep table fluid but ensure columns are wide enough */
+.user-management table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+  table-layout: auto;
+}
+
+/* Ensure key columns stay readable on wider layouts */
+.user-management th, .user-management td {
+  padding: 0.9rem 1rem; /* slightly more padding */
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* give sensible minimum widths to important columns */
+.user-management th:nth-child(2),
+.user-management td:nth-child(2)  /* Username */ {
+  min-width: 100px;
+  max-width: 160px;
+}
+.user-management th:nth-child(3),
+.user-management td:nth-child(3) /* Full name */ {
+  min-width: 220px;
+}
+.user-management th:nth-child(4),
+.user-management td:nth-child(4)  /* Email */ {
+  min-width: 240px;
+}
+
+/* DOB column narrower */
+.user-management th:nth-child(7),
+.user-management td:nth-child(7) {
+  min-width: 90px;
+  max-width: 110px;
+}
+
+/* Roles column can be wider for chips */
+.user-management th:nth-child(5),
+.user-management td:nth-child(5) {
+  min-width: 220px;
+}
+
+/* Slightly larger avatar and spacing */
+.user-management img[alt="avatar"] {
+  width: 64px;
+  height: 64px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Modals and forms get more room */
+.assign-role-modal {
+  max-width: 520px; /* increased from 400px */
+}
+
+.edit-user-modal {
+  max-width: 760px; /* increased from 480px */
+}
+
+/* Inputs allowed wider max width */
+.create-user input,
+.edit-user-modal input {
+  width: 100%;
+  max-width: 720px;
+}
+
+/* Responsive fallback for narrow screens */
+@media (max-width: 800px) {
+  .user-management {
+    max-width: 100%;
+    padding: 1rem;
+    margin: 1rem;
+  }
+  .user-management td.row-actions {
+    gap: 0.4rem;
+  }
+  .user-management th:nth-child(2),
+  .user-management td:nth-child(2),
+  .user-management th:nth-child(3),
+  .user-management td:nth-child(3),
+  .user-management th:nth-child(4),
+  .user-management td:nth-child(4),
+  .user-management th:nth-child(5),
+  .user-management td:nth-child(5) {
+    min-width: auto;
+  }
+  .user-management img[alt="avatar"] {
+    width: 48px;
+    height: 48px;
+  }
+}
+.role-chip {
+  display: inline-block;
+  background: #edf2f7;
+  color: #2b6cb0;
+  border-radius: 16px;
+  padding: 0.25rem 0.75rem;
+  margin: 0 0.25rem 0.25rem 0;
+  font-size: 0.95em;
+  position: relative;
+}
+.role-chip button {
+  background: none;
+  border: none;
+  color: #e53e3e;
+  font-size: 1em;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+.assign-role-modal {
+  background: #f7fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  max-width: 520px; /* increased from 400px */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.assign-role-modal h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: #2d3748;
+}
+.assign-role-modal select {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  border: 1px solid #cbd5e1;
+}
+.assign-role-modal button {
+  margin-right: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  border: none;
+  background: #5146D8;
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.assign-role-modal button:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+}
+.error {
+  color: #e53e3e;
+  background: #fff5f5;
+  border: 1px solid #fed7d7;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.success {
+  color: #155724;
+  background: #e6ffed;
+  border: 1px solid #c6f6d5;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.create-user input,
+.edit-user-modal input {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+  box-shadow: inset 0 1px 0 rgba(16,24,40,0.02);
+}
+
+.create-user button { margin-top: 0.5rem }
+
+.edit-user-modal {
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-top: 1rem;
+  max-width: 760px; /* increased from 480px */
+}
+
+.toggle-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.toggle-switch input[type="checkbox"] {
+  width: 40px;
+  height: 22px;
+  appearance: none;
+  background: #e2e8f0;
+  border-radius: 999px;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+}
+.toggle-switch input[type="checkbox"]:checked { background: #5146D8 }
+.toggle-switch input[type="checkbox"]::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 16px;
+  height: 16px;
+  background: #fff;
+  border-radius: 999px;
+  transition: transform 0.12s;
+}
+.toggle-switch input[type="checkbox"]:checked::after { transform: translateX(18px) }
+/* modal overlay and container */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1200;
+  padding: 1rem;
+}
+
+.modal-container {
+  background: #fff;
+  border-radius: 8px;
+  max-width: 920px;
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(2,6,23,0.2);
+  padding: 1.25rem;
+  box-sizing: border-box;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+/* keep existing modal size overrides (assign/edit) */
+.assign-role-modal { max-width: 520px; }
+.edit-user-modal { max-width: 760px; }
+
+/* quick focus outline for accessibility */
+.modal-container:focus { outline: none; box-shadow: 0 0 0 3px rgba(66,153,225,0.25); }
+
+.user-management td.row-actions {
+  display: flex;
+  gap: 12px; /* increased spacing between buttons */
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* make sure buttons have consistent padding so spacing looks good */
+.user-management td.row-actions .btn-assign,
+.user-management td.row-actions .btn-edit {
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+/* small responsive tweak */
+@media (max-width: 720px) {
+  .user-management td.row-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+.um-toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 2000;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: #fff;
+  box-shadow: 0 6px 22px rgba(2,6,23,0.12);
+  font-weight: 600;
+  min-width: 220px;
+}
+
+.um-toast-success {
+  background: #5146D8;
+}
+
+.um-toast-error {
+  background: #c53030;
+}
+
+/* small fade animation */
+.um-toast {
+  animation: um-fade 0.2s ease-out;
+}
+@keyframes um-fade {
+  from { transform: translateY(-6px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* Responsive: stack rows into cards on small screens */
+@media (max-width: 900px) {
+  .user-management table,
+  .user-management thead,
+  .user-management tbody,
+  .user-management th,
+  .user-management td,
+  .user-management tr {
+    display: block;
+  }
+  .user-management thead tr { display: none; }
+  .user-management tbody tr {
+    margin-bottom: 12px;
+    border: 1px solid #e6edf3;
+    padding: 12px;
+    border-radius: 8px;
+    background: #fff;
+  }
+  .user-management td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 6px;
+    border: none;
+    align-items: center;
+  }
+  .user-management td[data-label]::before {
+    content: attr(data-label) ": ";
+    font-weight: 600;
+    color: #4a5568;
+    margin-right: 8px;
+  }
+  .user-management td.row-actions { display: flex; gap: 8px; }
+}
+
+/* Desktop column widen tweaks */
+.user-management th:nth-child(2), .user-management td:nth-child(2) { min-width: 140px; max-width: 140px; }
+.user-management th:nth-child(3), .user-management td:nth-child(3) { min-width: 200px; }
+.user-management th:nth-child(4), .user-management td:nth-child(4) { min-width: 220px; }
+.user-management th:nth-child(5), .user-management td:nth-child(5) { min-width: 140px; max-width: 140px; }
+.user-management th:nth-child(8), .user-management td:nth-child(8) { min-width: 220px; }
+
+/* --- Page-specific overrides: modal layout fixes and button color matching #5146D8 --- */
+/* Create modal: use a responsive grid for consistent alignment */
+.create-user form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  align-items: start;
+}
+
+.create-user label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  color: #2d3748;
+}
+
+.create-user input,
+.create-user select,
+.create-user textarea {
+  width: 100%;
+  display: block;
+  margin: 0 0 10px 0;
+  box-sizing: border-box;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #e2e8f0;
+  background: #fff;
+}
+
+/* Utility: make a form element span both columns in the create grid */
+.create-user .full-row {
+  grid-column: 1 / -1;
+}
+
+/* sex row styling: span full width and show options inline */
+.create-user .sex-row { grid-column: 1 / -1; display: contents; }
+.create-user .sex-options { display: flex; gap: 12px; align-items: center; }
+.create-user .sex-options label { display: inline-flex; align-items: center; gap: 6px; }
+
+/* Fields that should span the full modal width */
+.create-user input[type="file"],
+.create-user img,
+.create-user input[type="email"],
+.create-user input[type="password"],
+.create-user input[type="date"],
+.create-user .create-actions { 
+  grid-column: 1 / -1;
+}
+
+/* Constrain create modal width so it doesn't stretch too wide */
+.modal-container.create-user {
+  max-width: 680px;
+}
+
+/* Use requested purple for save/create/reset/export buttons on this page */
+.btn-save, .btn-reset, .btn-export, .btn-create, .btn-primary {
+  background: var(--um-primary) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+/* Create modal actions row */
+.create-user .create-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+.create-user .btn-cancel { background: #f3f4f6; color: #111827; border: 1px solid #e5e7eb; }
+.create-user .btn-save { padding: 8px 14px; border-radius: 6px; }
+
+/* Small tweak: make toggle-switch checked indicator match purple (already done above) */
+.create-user form {
+  --um-primary: #5146D8;
+}
+
+/* Password strength UI */
+.pw-strength { grid-column: 1 / -1; margin-bottom: 6px; }
+.pw-meter { height: 8px; background: #edf2f7; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
+.pw-meter-fill { height: 100%; background: linear-gradient(90deg, #f56565, #f6ad55, #48bb78); width: 0%; transition: width 160ms ease; }
+.pw-checklist { list-style: none; padding: 0; margin: 0; display: flex; gap: 12px; flex-wrap: wrap; font-size: 0.9rem; color: #4a5568; }
+.pw-checklist li { padding: 4px 8px; border-radius: 6px; background: #fff; border: 1px solid #edf2f7; }
+.pw-checklist li.ok { background: #edfdf7; border-color: #9ae6b4; color: #22543d; }
+
+/* Username availability indicator */
+.create-user input[autoComplete="off"] + .username-availability { display: inline-block; margin-left: 8px; font-size: 0.9rem; }
+.username-availability.ok { color: #2f855a; }
+.username-availability.taken { color: #c53030; }
+
+/* Top form availability / validation message - sits above inputs and spans full width */
+.form-availability { grid-column: 1 / -1; padding: 8px 10px; border-radius: 6px; margin-bottom: 8px; font-weight: 600; }
+.form-availability.ok { background: #edfdf7; border: 1px solid #9ae6b4; color: #22543d; }
+.form-availability.taken { background: #fff5f5; border: 1px solid #fed7d7; color: #9b2c2c; }
+

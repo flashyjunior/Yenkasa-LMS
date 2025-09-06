@@ -1,0 +1,67 @@
+{
+  "name": "lms-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@microsoft/signalr": "^7.0.5",
+    "@mui/material": "^7.3.1",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.6.4",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/axios": "^0.9.36",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.18.126",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/react-router-dom": "^5.3.3",
+    "axios": "^1.11.0",
+    "dompurify": "^3.2.6",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
+    "emoji-mart": "^5.6.0",
+    "emoji-picker-react": "^4.6.1",
+    "quill": "^2.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^7.8.0",
+    "react-scripts": "5.0.1",
+    "styled-components": "^6.1.19",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "proxy": "http://localhost:5124",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/dompurify": "^3.0.5",
+    "@types/draftjs-to-html": "^0.8.4",
+    "@types/styled-components": "^5.1.34"
+  }
+}

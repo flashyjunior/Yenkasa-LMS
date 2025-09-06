@@ -1,0 +1,27 @@
+/* Styles for Admin Announcements & Badges page */
+.announcements-container {
+  padding: 16px;
+}
+.announcements-panel {
+  display: grid;
+  gap: 12px;
+  max-width: 720px;
+  padding: 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #fff;
+}
+.form-row { display: flex; gap: 12px; align-items: center; }
+.form-col { display: flex; flex-direction: column; }
+.form-label { font-weight: 600; }
+.textarea { min-height: 84px; padding: 8px; border-radius: 6px; border: 1px solid #d1d5db; }
+.input-small { width: 120px; padding: 6px; border-radius: 6px; border: 1px solid #ddd; }
+.input-medium { width: 160px; padding: 6px; border-radius: 6px; border: 1px solid #ddd; }
+.btn-save { background: #10b981; color: #fff; padding: 8px 12px; border-radius: 6px; border: none; }
+.message-ok { color: #0a0; }
+.badges-grid { display: flex; gap: 12px; flex-wrap: wrap; }
+.badge-card { border: 1px solid #eee; padding: 8px; border-radius: 6px; min-width: 160px; }
+.panel-flex { display: flex; gap: 24px; }
+.panel-column { flex: 1; }
+.input { width: 100%; padding: 6px; margin-top: 4px; margin-bottom: 8px; }
+.create-button { margin-top: 8px; }

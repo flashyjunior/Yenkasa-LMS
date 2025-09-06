@@ -1,0 +1,244 @@
+/* Styles for lesson detail tabs and layout */
+.lesson-detail { max-width: 1000px; margin: 0 auto; padding: 20px; }
+.lesson-detail .back-link { background: none; border: none; color: #00bfae; font-weight: 600; cursor: pointer; margin-bottom: 8px; }
+.lesson-title { font-size: 1.75rem; margin: 8px 0 16px 0; }
+.lesson-media { background: #000; border-radius: 6px; overflow: hidden; position: relative; z-index: 1; }
+.lesson-html { padding: 12px; }
+
+/* Tabs styling (div-based tabs) */
+.lesson-tabs { margin-top: 16px; }
+.tabs-header { display: flex; gap: 8px; border-bottom: 1px solid #e6e6e6; padding-bottom: 8px; position: relative; }
+.tab-btn { background: transparent; padding: 10px 14px; cursor: pointer; color: #374151; font-weight: 600; border-radius: 6px 6px 0 0; display: inline-flex; align-items: center; }
+.tab-btn:focus { outline: 3px solid rgba(99,102,241,0.18); outline-offset: 2px; }
+.tab-btn:hover { background: rgba(2,6,23,0.02); }
+.tab-btn.active { color: #111827; border-bottom: 3px solid #111827; padding-bottom: 7px; }
+
+.lesson-tabs { margin-top: 16px; }
+.tabs-header { display: flex; gap: 8px; border-bottom: 1px solid #e6e6e6; padding-bottom: 8px; position: relative; z-index: 99999; }
+.tab-btn { background: transparent; border: none; padding: 10px 14px; cursor: pointer; color: #374151; font-weight: 600; border-radius: 6px 6px 0 0; }
+.tab-btn:hover { background: rgba(2,6,23,0.02); }
+.tab-btn.active { color: #111827; border-bottom: 3px solid #111827; padding-bottom: 7px; }
+.tabs-panel { padding: 18px 6px; background: #fff; border-radius: 6px; box-shadow: 0 6px 18px rgba(2,6,23,0.04); margin-top: 8px; position: relative; z-index: 100000; }
+
+/* Simple fade animation for panels */
+.tab-pane { animation: fadeIn 220ms ease-in-out; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ensure media iframe doesn't create an unexpected stacking context that intercepts clicks */
+.lesson-media iframe { position: relative; z-index: 0; }
+.tab-pane h3 { margin-top: 0; }
+.muted { color: #6b7280; }
+.qa-placeholder, .announcements-placeholder { color: #6b7280; padding: 12px; border: 1px dashed #eee; border-radius: 6px; }
+
+@media (max-width: 768px) {
+  .lesson-detail { padding: 12px; }
+  .lesson-title { font-size: 1.4rem; }
+}
+
+/* Q&A styles */
+.qa-banner { display: flex; justify-content: space-between; align-items: center; background: #f3e8ff; padding: 18px; border-radius: 12px; border: 1px solid #edd9ff; }
+.qa-banner-text strong { display: block; font-size: 1.05rem; margin-bottom: 4px; }
+.qa-search-row { display: flex; gap: 8px; margin-top: 16px; }
+.qa-search-row input { flex: 1; padding: 10px 12px; border-radius: 6px; border: 1px solid #d1d5db; }
+.qa-search-btn { background: #6c63ff; color: #fff; border: none; padding: 10px 12px; border-radius: 6px; cursor: pointer; }
+.qa-controls { display: flex; gap: 12px; align-items: center; margin-top: 12px; }
+.qa-controls label { margin-right: 8px; color: #374151; }
+.qa-controls select { padding: 8px 10px; border-radius: 6px; border: 1px solid #d1d5db; }
+.btn-outline { background: transparent; border: 1px solid #6c63ff; color: #6c63ff; padding: 8px 10px; border-radius: 6px; margin-left: 8px; }
+
+.qa-list { margin-top: 16px; }
+.qa-item { display: flex; justify-content: space-between; padding: 18px 12px; border-bottom: 1px solid #f1f5f9; align-items: center; }
+.qa-left { display: flex; gap: 12px; align-items: flex-start; width: 100%; }
+.qa-avatar { width: 36px; height: 36px; border-radius: 18px; background: #111827; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+.qa-body { max-width: none; flex: 1 1 auto; }
+.qa-title { font-weight: 700; margin-bottom: 6px; }
+.qa-excerpt { color: #6b7280; margin-bottom: 8px; }
+.qa-meta a { color: #6c63ff; text-decoration: none; margin-right: 6px; }
+.qa-stats { text-align: center; width: 64px; color: #6b7280; flex: 0 0 64px; }
+.qa-votes { margin-bottom: 8px; }
+.qa-answers { font-weight: 700; }
+
+.qa-new textarea { width: 100%; min-height: 80px; padding: 12px; border-radius: 8px; border: 1px solid #e5e7eb; }
+.qa-replies { margin-top: 12px; }
+.qa-reply { padding: 8px 12px; background: #f9fafb; border-radius: 8px; margin-bottom: 8px; }
+.qa-reply strong { margin-right: 6px; }
+
+/* Modal styles for report dialog */
+.modal-backdrop { position: fixed; inset: 0; background: rgba(2,6,23,0.45); display: flex; align-items: center; justify-content: center; z-index: 200000; }
+.modal { background: #fff; padding: 18px; border-radius: 8px; width: 420px; max-width: calc(100% - 32px); box-shadow: 0 12px 30px rgba(2,6,23,0.25); }
+.modal h3 { margin-top: 0; }
+.modal textarea { width: 100%; min-height: 100px; padding: 8px; border-radius: 6px; border: 1px solid #e5e7eb; }
+.btn.small { padding: 6px 8px; font-size: 0.85rem; }
+.btn-outline.small { padding: 6px 8px; font-size: 0.85rem; }
+
+/* Compact chat / Q&A adjustments (reduced spacing & smaller fonts) */
+.qa-list { margin-top: 12px; }
+.qa-item { padding: 12px 10px; gap: 10px; }
+.qa-left { gap: 10px; }
+.qa-avatar { width: 36px; height: 36px; border-radius: 50%; font-size: 0.90rem; }
+.qa-avatar.small { width: 28px; height: 28px; border-radius: 50%; font-size: 0.78rem; }
+.qa-body { max-width: 760px; }
+.qa-title { font-weight: 700; margin-bottom: 4px; font-size: 0.98rem; }
+.qa-excerpt { color: #6b7280; margin-bottom: 6px; font-size: 0.92rem; }
+.qa-meta { font-size: 0.82rem; color: #6b7280; }
+
+/* Replies compact */
+.qa-replies { margin-top: 10px; }
+.qa-replies { margin-top: 10px; display: block; }
+.qa-reply { padding: 8px 0; background: transparent; margin-bottom: 6px; font-size: 0.94rem; line-height: 1.35; display: flex; gap: 12px; align-items: flex-start; }
+.qa-reply .qa-avatar { width: 36px; height: 36px; font-size: 0.9rem; flex: 0 0 36px; border-radius: 18px; }
+.qa-reply .reply-body { flex: 1; }
+.message-bubble { max-width: none; width: 100%; padding: 10px 12px; border-radius: 10px; }
+
+/* Collapsed question behavior */
+.qa-item.collapsed { padding-left: 10px; padding-right: 10px; cursor: pointer; }
+.qa-item.collapsed .qa-replies { display: none; }
+.qa-item.collapsed .qa-excerpt { max-height: 2.2em; overflow: hidden; }
+
+/* Focus / highlight when navigated via query params */
+.qa-item.focus { box-shadow: 0 6px 20px rgba(99,102,241,0.12); border-radius: 8px; background: linear-gradient(180deg, #fffdfa, #ffffff); animation: focusPulse 2.2s ease-in-out; }
+.qa-reply.focus-reply { outline: 3px solid rgba(99,102,241,0.14); border-radius: 6px; background: #fff; animation: focusPulse 2.2s ease-in-out; }
+@keyframes focusPulse {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+/* Rich reply editor styles */
+.rich-reply-container { margin-top: 12px; }
+.rich-editor-toolbar { display: flex; gap: 8px; margin-bottom: 6px; }
+.rich-editor-toolbar button { background: #fff; border: 1px solid #e6e6e6; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+.rich-editor-toolbar button.active { background: #6c63ff; color: white; border-color: #5a4bff; }
+.rich-reply-editor { min-height: 110px; padding: 10px 12px; border-radius: 8px; border: 1px solid #e5e7eb; background: #fff; font-size: 0.95rem; line-height: 1.4; outline: none; }
+.rich-reply-editor:focus { box-shadow: 0 8px 20px rgba(9,30,66,0.06); }
+
+/* Larger, more GitHub-like chat input */
+.reply-input-wrapper { border-radius: 12px; padding: 12px; background: #fff; border: 1px solid #e6e6e6; width: 100%; box-sizing: border-box; }
+.reply-input-wrapper .ql-editor, .reply-input-wrapper .rich-reply-editor { min-height: 140px; max-height: 480px; overflow: auto; }
+.editor-tabs .btn-outline.small { background: transparent; border: 1px solid transparent; }
+.inline-action { font-size: 0.98rem; padding: 6px; border-radius: 8px; }
+.inline-action[title]:hover::after { /* disabled pseudo tooltip to avoid layout overlap; MUI Tooltip used instead */ content: none; }
+
+/* Avatar initial color variants (subtle) */
+.qa-avatar { background: #111827; color: #fff; display: inline-flex; justify-content: center; align-items: center; }
+.qa-avatar[data-bg="alt"] { background: #6c63ff; }
+.qa-avatar[data-bg="muted"] { background: #4b5563; }
+
+/* Tighten QA banner and controls for compact layout */
+.qa-banner { padding: 12px; border-radius: 10px; }
+.qa-controls { margin-top: 10px; gap: 8px; }
+
+/* Chat-style reply box */
+.reply-box { display: flex; gap: 12px; align-items: flex-start; margin-top: 8px; }
+.reply-avatar { width: 40px; height: 40px; border-radius: 50%; background: #6c63ff; color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.95rem; }
+.reply-input-wrapper { border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px; background: #fff; width: 100%; box-sizing: border-box; }
+.reply-input-wrapper.focused { border-color: #6c63ff; box-shadow: 0 6px 18px rgba(99,102,241,0.12); }
+.reply-input-wrapper .rich-reply-editor { min-height: 110px; max-height: 360px; overflow: auto; padding: 12px; }
+.rich-reply-editor[contenteditable]:empty:before { content: attr(data-placeholder); color: #9ca3af; }
+
+/* Composer placed inside the qa-body so it aligns with the question text */
+.qa-body-composer { margin-top: 10px; }
+.qa-body-composer .chatbox { width: 100%; }
+
+/* Emoji popover */
+.emoji-popover { position: absolute; background: white; border: 1px solid #e6e6e6; border-radius: 8px; padding: 6px; display: flex; gap: 6px; z-index: 200; box-shadow: 0 8px 24px rgba(2,6,23,0.08); }
+.emoji-btn { background: transparent; border: none; font-size: 1.15rem; cursor: pointer; padding: 4px; }
+
+/* File badge */
+.file-badge { background: #f3f4f6; border: 1px solid #e6e6e6; padding: 6px 8px; border-radius: 999px; display: inline-flex; gap: 8px; align-items: center; }
+.file-badge button { padding: 4px 6px; }
+
+/* Inline action icons (upvote/report/delete) */
+.inline-action { font-size: 0.95rem; color: #374151; padding: 4px; border-radius: 6px; }
+.inline-action.muted { color: #6b7280; }
+.inline-action.danger { color: #b91c1c; }
+.inline-action:hover { background: rgba(0,0,0,0.03); }
+
+/* Message bubble styling for replies */
+.message-bubble { max-width: 100%; padding: 10px 12px; border-radius: 12px; background: #f3f4f6; margin-bottom: 8px; }
+.message-bubble.mine { background: #dbeafe; /* remove auto margin so it aligns with other replies */ }
+.message-bubble .message-meta { font-size: 0.8rem; color: #6b7280; margin-bottom: 6px; }
+.message-bubble .message-text { font-size: 0.95rem; line-height: 1.35; }
+
+/* New header layout inside each message bubble: author on left, actions on right */
+.message-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.message-header .message-meta { display: flex; gap: 8px; align-items: center; font-size: 0.92rem; color: #111827; }
+.reply-actions-inline { display: flex; gap: 8px; align-items: center; }
+.reply-actions-inline .inline-action { padding: 6px 8px; font-size: 0.92rem; }
+
+/* Ensure replies form a consistent left avatar column and body column */
+.qa-replies { display: block; }
+.qa-reply { display: flex; gap: 12px; align-items: flex-start; }
+.qa-reply .qa-avatar { flex: 0 0 36px; width: 36px; height: 36px; }
+.qa-reply .reply-body { flex: 1 1 auto; }
+
+/* Keep the composer row aligned under the replies column */
+.qa-reply-row { margin-left: 48px; }
+.qa-reply-count { color: #6b7280; font-size: 0.92rem; margin-top: 6px; margin-bottom: 4px; }
+
+/* Make reply count prominent and bold, sized like the section header */
+.qa-reply-count {
+  color: #111827;
+  font-weight: 700;
+  font-size: 1.05rem; /* similar to h4 */
+  margin-top: 8px;
+  margin-bottom: 10px;
+}
+
+.qa-time { margin-top: 6px; color: #6b7280; font-size: 0.9rem; }
+
+.author-label { font-weight: 700; color: #5146D8; background: transparent; padding: 4px 8px; border-radius: 6px; margin-right: 8px; }
+
+/* Ellipsis menu styling to match compact screenshot-like appearance */
+.ellipsis-menu { min-width: 140px; border-radius: 8px; overflow: hidden; }
+.ellipsis-menu button { display: block; width: 100%; text-align: left; padding: 10px 12px; background: white; border: none; cursor: pointer; color: #111827; font-weight: 600; }
+.ellipsis-menu button:hover { background: #f3f4f6; }
+.ellipsis-trigger { background: transparent; border: none; padding: 6px; border-radius: 6px; cursor: pointer; color: #6b7280; }
+.ellipsis-trigger:hover { background: rgba(0,0,0,0.04); color: #111827; }
+
+/* small dropdown arrow shadow */
+.ellipsis-menu::before { content: ''; position: absolute; right: 10px; top: -6px; width: 10px; height: 10px; transform: rotate(45deg); background: #fff; border-left: 1px solid #e6e6e6; border-top: 1px solid #e6e6e6; }
+
+/* Reply/editor control refinements: remove green buttons and improve spacing */
+.reply-controls { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 8px; }
+.reply-controls .left { display: flex; gap: 12px; align-items: center; color: #6b7280; font-size: 0.92rem; }
+.reply-controls .right { display: flex; gap: 8px; }
+.reply-controls .btn { background: transparent; border: 1px solid #d1d5db; color: #374151; padding: 8px 12px; border-radius: 6px; }
+.reply-controls .btn:hover { background: #f3f4f6; }
+.reply-controls .btn-outline { background: transparent; border: 1px solid #d1d5db; color: #374151; }
+.reply-controls .btn.primary { background: #eef2f6; color: #0f172a; border-color: #e2e8f0; }
+
+/* Editor toolbar compact styling */
+.editor-tabs { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+.editor-toolbar { display: flex; gap: 8px; align-items: center; border-bottom: 1px solid #eef2f6; padding-bottom: 8px; margin-bottom: 8px; }
+.editor-toolbar button { background: transparent; border: none; padding: 6px; border-radius: 6px; cursor: pointer; color: #6b7280; }
+.editor-toolbar button:hover { background: #f3f4f6; color: #111827; }
+
+/* Make the reply buttons smaller and less prominent (no green) */
+.qa-new .btn, .reply-input-wrapper .btn { background: transparent; border: 1px solid #d1d5db; color: #374151; }
+.qa-new .btn:hover, .reply-input-wrapper .btn:hover { background: #f3f4f6; }
+
+/* Chatbox specific styles to match screenshot spacing, borders and controls */
+.chatbox { border: 1px solid #dbeefb; border-radius: 10px; background: #f7fbff; padding: 10px; box-shadow: 0 6px 18px rgba(15,23,42,0.04); }
+.chatbox-toolbar { display: flex; gap: 6px; align-items: center; padding: 10px; border-bottom: 1px solid #e9f2fb; margin-bottom: 8px; }
+.chatbox-toolbar .tool-btn { background: transparent; border: none; padding: 8px; border-radius: 6px; cursor: pointer; color: #374151; font-weight: 600; font-size: 0.92rem; }
+.chatbox-toolbar .tool-btn:hover { background: #f0fbff; color: #0f172a; }
+.chatbox-toolbar .spacer { flex: 1; }
+.chatbox-editor { min-height: 120px; padding: 14px; border-radius: 6px; border: 1px solid #eef6fb; outline: none; font-size: 0.95rem; line-height: 1.4; background: #fff; }
+.chatbox-editor:empty:before { content: attr(aria-label); color: #8b94a6; }
+.chatbox-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+.chatbox-footer .hint { color: #6b7280; font-size: 13px; }
+.chatbox-footer .actions { display: flex; gap: 8px; }
+.chatbox-footer .btn-outline { background: transparent; border: 1px solid #d1d5db; color: #374151; padding: 12px 12px; border-radius: 6px; }
+.chatbox-footer .btn-primary { background: #eef2f6; border: 1px solid #d1e1ea; color: #0f172a; padding: 12px 14px; border-radius: 6px; }
+
+/* file badges inside chatbox */
+.chatbox .file-badge { padding: 6px 8px; background: #f3f4f6; border-radius: 999px; display: inline-flex; gap: 8px; align-items: center; }
+
+
+
+
+
