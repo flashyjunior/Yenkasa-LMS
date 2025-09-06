@@ -1,0 +1,34 @@
+/* Polished styling for Roles & Permissions matrix */
+.main-content h1 { margin-bottom: 10px; font-size: 20px; }
+
+.roles-matrix { overflow-x: auto; border: 1px solid #f1f3f5; border-radius: 8px; background: #fff; box-shadow: 0 1px 2px rgba(16,24,40,0.03); }
+.roles-matrix table { width: 100%; border-collapse: collapse; }
+.roles-matrix th { background: #fbfbfd; padding: 14px; text-align: center; font-weight: 700; color: #111827; }
+.roles-matrix td { padding: 12px; text-align: center; vertical-align: middle; color: #374151; }
+.roles-matrix td.permission-name { text-align: left; min-width: 240px; font-weight: 600; color: #111827; }
+
+/* Chips */
+.badge-yes { background: linear-gradient(180deg,#10b981,#059669); color: #fff; padding: 6px 12px; border-radius: 999px; display: inline-block; font-weight: 600; box-shadow: 0 1px 0 rgba(0,0,0,0.06); }
+.badge-no { background: #f3f4f6; color: #6b7280; padding: 6px 12px; border-radius: 999px; display: inline-block; font-weight: 600; }
+.badge-yes:hover, .badge-no:hover { transform: translateY(-1px); }
+
+/* Drag handle */
+.roles-matrix th[draggable] { cursor: grab; }
+.roles-matrix th[draggable]:active { cursor: grabbing; }
+
+.roles-matrix th button { background: transparent; border: none; cursor: pointer; padding: 6px; border-radius: 6px; }
+.roles-matrix th button:hover { background: rgba(16,24,40,0.04); }
+.roles-matrix th button:active { transform: scale(0.98); }
+
+.roles-matrix pre { background: #0f172a; color: #e6eef8; padding: 8px; border-radius: 6px; font-size: 12px; }
+
+.admin-actions { display: flex; gap: 8px; align-items: center; }
+
+/* Responsive: stack roles for narrow screens */
+@media (max-width: 720px) {
+  .roles-matrix table, .roles-matrix thead, .roles-matrix tbody, .roles-matrix th, .roles-matrix td, .roles-matrix tr { display: block; }
+  .roles-matrix thead { display: none; }
+  .roles-matrix tr { margin-bottom: 12px; border-bottom: 1px solid #f8fafc; }
+  .roles-matrix td.permission-name { font-weight: 700; padding-left: 12px; }
+  .roles-matrix td { padding: 8px 12px; }
+}

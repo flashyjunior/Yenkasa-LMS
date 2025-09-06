@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Learning Management System (LMS)
 
 This project is an ASP.NET MVC-based Learning Management System modeled after platforms like Udemy. It provides video-based lessons, integrated quizzes, secure user data storage, progress tracking, and a CMS for administrators.
