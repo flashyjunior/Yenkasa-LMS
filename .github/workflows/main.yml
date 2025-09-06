@@ -7,37 +7,33 @@ on:
     branches: [ main ]
 
 jobs:
-  backend:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Setup .NET 9
       - name: Setup .NET 9
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v3
         with:
           dotnet-version: '9.0.x'
 
-      - name: Install dependencies
+      # Restore & build backend
+      - name: Restore backend dependencies
         run: dotnet restore ./LMS.csproj
 
-      - name: Build
+      - name: Build backend
         run: dotnet build ./LMS.csproj --configuration Release --no-restore
 
-    frontend:
-    runs-on: ubuntu-latest
-    needs: backend
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
+      # Setup Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
+      # Install & build frontend
       - name: Install frontend dependencies
         working-directory: ./lms-client
         run: npm install
