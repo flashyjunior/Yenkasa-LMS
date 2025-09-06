@@ -14,10 +14,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0' # Change if using a different .NET version
+      - name: Setup .NET 9 Preview
+        run: |
+          wget https://download.visualstudio.microsoft.com/download/pr/46dbf1c3-32d2-47f0-bb17-d99f53475c0c/20c76bbd0d03b78681de649ed8e6c0bb/dotnet-sdk-9.0.100-rc.1.24452.12-linux-x64.tar.gz
+          mkdir -p $HOME/dotnet
+          tar zxf dotnet-sdk-9.0.100-rc.1.24452.12-linux-x64.tar.gz -C $HOME/dotnet
+          echo "$HOME/dotnet" >> $GITHUB_PATH
+          echo "DOTNET_ROOT=$HOME/dotnet" >> $GITHUB_ENV
 
       - name: Restore dependencies
         run: dotnet restore ./LMS.csproj
