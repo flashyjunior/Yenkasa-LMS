@@ -16,11 +16,8 @@ jobs:
 
       - name: Setup .NET 9 Preview
         run: |
-          wget https://download.visualstudio.microsoft.com/download/pr/46dbf1c3-32d2-47f0-bb17-d99f53475c0c/20c76bbd0d03b78681de649ed8e6c0bb/dotnet-sdk-9.0.100-rc.1.24452.12-linux-x64.tar.gz
-          mkdir -p $HOME/dotnet
-          tar zxf dotnet-sdk-9.0.100-rc.1.24452.12-linux-x64.tar.gz -C $HOME/dotnet
-          echo "$HOME/dotnet" >> $GITHUB_PATH
-          echo "DOTNET_ROOT=$HOME/dotnet" >> $GITHUB_ENV
+          sudo apt-get update
+          sudo apt-get install -y dotnet-sdk-9.0
 
       - name: Restore dependencies
         run: dotnet restore ./LMS.csproj
