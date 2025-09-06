@@ -1,7 +1,6 @@
 
 
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import api from '../api';
 
@@ -108,16 +107,22 @@ const AdminDashboard: React.FC = () => {
   function fetchData() {
     Promise.all([
       api.get('/api/lms/users'),
-      axios.get('/api/lms/courses'),
-      axios.get('/api/lms/quizzes'),
+  api.get('/api/lms/courses'),
+  api.get('/api/lms/quizzes'),
   api.get('/api/lms/progress')
     ]).then(([usersRes, coursesRes, quizzesRes, progressRes]) => {
-      setUsers(usersRes.data as any[]);
-      setCourses(coursesRes.data as any[]);
-      setQuizzes(quizzesRes.data as any[]);
+      const rawUsers: any = usersRes.data;
+      const rawCourses: any = coursesRes.data;
+      const rawQuizzes: any = quizzesRes.data;
+      const usersList = Array.isArray(rawUsers) ? rawUsers : (rawUsers && Array.isArray(rawUsers.items) ? rawUsers.items : []);
+      const coursesList = Array.isArray(rawCourses) ? rawCourses : (rawCourses && Array.isArray(rawCourses.items) ? rawCourses.items : []);
+      const quizzesList = Array.isArray(rawQuizzes) ? rawQuizzes : (rawQuizzes && Array.isArray(rawQuizzes.items) ? rawQuizzes.items : []);
+      setUsers(usersList as any[]);
+      setCourses(coursesList as any[]);
+      setQuizzes(quizzesList as any[]);
       setProgress((progressRes.data as { completedLessons: number }).completedLessons);
       // Use top 5 courses by enrollments (or fallback to all if less than 5)
-      const topCourses = (coursesRes.data as any[])
+      const topCourses = (coursesList as any[])
         .sort((a, b) => (b.enrollments || 0) - (a.enrollments || 0))
         .slice(0, 5)
         .map((c: any) => ({ label: c.title, value: c.enrollments || 0 }));
@@ -139,27 +144,27 @@ const AdminDashboard: React.FC = () => {
 
   const handleCoursePublishToggle = async (c: any) => {
     if (c.published) {
-      await axios.put(`/api/lms/courses/${c.id}`, { ...c, published: false });
+  await api.put(`/api/lms/courses/${c.id}`, { ...c, published: false });
     } else {
-      await axios.put(`/api/lms/courses/${c.id}/publish`);
+  await api.put(`/api/lms/courses/${c.id}/publish`);
     }
     fetchData();
   };
 
   const handleLessonPublishToggle = async (l: any) => {
     if (l.published) {
-      await axios.put(`/api/lms/lessons/${l.id}`, { ...l, published: false });
+  await api.put(`/api/lms/lessons/${l.id}`, { ...l, published: false });
     } else {
-      await axios.put(`/api/lms/lessons/${l.id}/publish`);
+  await api.put(`/api/lms/lessons/${l.id}/publish`);
     }
     fetchData();
   };
 
   const handleQuizPublishToggle = async (q: any) => {
     if (q.published) {
-      await axios.put(`/api/lms/quizzes/${q.id}`, { ...q, published: false });
+  await api.put(`/api/lms/quizzes/${q.id}`, { ...q, published: false });
     } else {
-      await axios.put(`/api/lms/quizzes/${q.id}/publish`);
+  await api.put(`/api/lms/quizzes/${q.id}/publish`);
     }
     fetchData();
   };

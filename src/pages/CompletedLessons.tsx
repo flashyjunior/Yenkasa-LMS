@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const CompletedLessons: React.FC = () => {
   const [lessons, setLessons] = useState<any[]>([]);
 
   useEffect(() => {
-  axios.get('/api/lms/progress').then(res => setLessons(res.data as any[]));
+    api.get('/api/lms/progress').then(res => setLessons(res.data as any[]));
   }, []);
 
   return (

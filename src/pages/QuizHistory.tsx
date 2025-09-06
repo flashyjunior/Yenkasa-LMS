@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const QuizHistory: React.FC = () => {
   const [history, setHistory] = useState<any[]>([]);
 
   useEffect(() => {
-    axios.get('/api/account/quizhistory').then(res => setHistory(res.data as any[]));
+    api.get('/api/lms/quiz-results').then(res => setHistory(res.data as any[]));
   }, []);
 
   return (

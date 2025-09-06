@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import Notification from '../components/Notification';
 import { Link } from 'react-router-dom';
 
@@ -20,7 +20,7 @@ const Quiz: React.FC = () => {
   const [notification, setNotification] = useState('');
 
   useEffect(() => {
-    axios.get(`/api/quiz/lesson/${id}`)
+    api.get(`/api/quiz/lesson/${id}`)
       .then(res => {
         // Only show published quizzes
         const all = res.data as Quiz[];
@@ -36,7 +36,7 @@ const Quiz: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    axios.post('/api/quiz/submit', answers)
+    api.post('/api/quiz/submit', answers)
       .then(res => {
         setScore((res.data as { score: number }).score);
         setNotification((res.data as { feedback: string }).feedback);

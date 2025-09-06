@@ -27,7 +27,8 @@ const AdminQuizzes: React.FC = () => {
   }, []);
 
   return (
-    <div className="admin-list-page fade-in">
+    <div className="main-content">
+      <div className="admin-list-page fade-in">
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <h2 style={{ margin: 0 }}>Quizzes</h2>
         <Link to="/create-quiz" className="btn btn-primary">+ Add New Quiz</Link>
@@ -54,6 +55,7 @@ const AdminQuizzes: React.FC = () => {
           ))}
         </div>
       )}
+      </div>
     </div>
   );
 };

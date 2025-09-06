@@ -2,6 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api';
 
+// Fetch quizzes for a course
+const fetchQuizzes = async (courseId: number) => {
+  const res = await api.get(`/api/lms/courses/${courseId}/quizzes`);
+  return res.data;
+};
+
+// Submit quiz result for a course
+// Define QuizResultDto type (adjust fields as needed to match backend DTO)
+type QuizResultDto = {
+  UserId: string;
+  LessonId: number;
+  Answers: Record<number, number | null>;
+  Results: Record<number, boolean>;
+  Score: number;
+  Grade: string;
+  PassMark: number;
+  Passed: boolean;
+};
+
+const submitQuizResult = async (courseId: number, result: QuizResultDto) => {
+  await api.post(`/api/lms/courses/${courseId}/quiz-results`, result);
+};
+
 const TakeQuiz: React.FC = () => {
   const params = useParams<{ id?: string }>();
   const lessonOrQuizId = params.id;

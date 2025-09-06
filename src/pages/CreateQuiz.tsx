@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 
 const CreateQuiz: React.FC = () => {
   const [lessonId, setLessonId] = useState('');
@@ -11,7 +11,11 @@ const CreateQuiz: React.FC = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-  axios.get('/api/lms/lessons').then(res => setLessons(res.data as any[]));
+  api.get('/api/lms/lessons').then(res => {
+    const raw: any = res.data;
+    const arr = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.items) ? raw.items : []);
+    setLessons(arr as any[]);
+  });
   }, []);
 
   const handleOptionChange = (idx: number, value: string) => {
@@ -24,7 +28,7 @@ const CreateQuiz: React.FC = () => {
     e.preventDefault();
     setError('');
     try {
-      await axios.post('/api/lms/quizzes', { lessonId, question, options, correctOptionIndex });
+  await api.post('/api/lms/quizzes', { lessonId, question, options, correctOptionIndex });
       setSuccess(true);
       setLessonId('');
       setQuestion('');

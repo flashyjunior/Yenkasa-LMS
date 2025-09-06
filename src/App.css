@@ -27,13 +27,27 @@ body {
   padding: 0;
 }
 
+:root {
+  --sidebar-width: 240px; /* width of the fixed sidebar */
+  --sidebar-collapsed-width: 60px; /* collapsed width on small screens / collapse */
+  /* reduced the gap so main content gets more room while keeping breathing room */
+  --content-gap: 12px;
+}
 
-.sidebar { width: 240px; position: relative; z-index: 2; }
-.main-content { margin-left: 240px; /* or use flex layout instead */ }
+
+.sidebar { width: var(--sidebar-width); position: fixed; top: 0; left: 0; z-index: 200; }
+.main-content { margin-left: var(--sidebar-width); }
 
 .main-content {
-  margin-left: 220px;
+  /* leave space for the fixed sidebar and add a consistent gap for breathing room */
+  margin-left: var(--sidebar-width);
+  /* base padding: top/bottom 2rem, right 1rem. Left padding adds the content gap so
+     child pages align consistently with the sidebar */
   padding: 2rem 1rem;
+  padding-left: calc(var(--content-gap) + 1rem);
+  height: 100vh; /* fill viewport so inner scrolling works */
+  overflow-y: auto; /* allow page content to scroll independently of sidebar */
+  box-sizing: border-box;
 }
 /* Card and form enhancements for modern UI */
 .card {
@@ -42,7 +56,52 @@ body {
   box-shadow: 0 2px 8px rgba(0,0,0,0.08);
   padding: 2rem;
   margin: 2rem auto;
-  max-width: 600px;
+  max-width: 900px;
+}
+
+/* Dashboard metrics and layout helpers */
+.metrics-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  margin-bottom: 24px;
+}
+.metric-card {
+  flex: 0 0 200px; /* fixed base width, tightened per request */
+  padding: 14px;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: all 220ms ease; /* smooth resizing */
+}
+.metric-label { color: #9ca3af; font-size: 13px; }
+.metric-count { font-size: 26px; font-weight: 700; margin-top: 6px; }
+
+.dashboard-grid { display: flex; gap: 20px; transition: all 220ms ease; }
+.dashboard-main { flex: 4; background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 220ms ease; }
+.dashboard-side { flex: 1; background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: all 220ms ease; }
+
+/* Course list item styles for Continue learning */
+.course-list { list-style: none; padding: 0; margin: 0; }
+.course-item { display: flex; align-items: center; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
+.course-info { flex: 1; }
+.course-title { font-weight: 600; }
+.course-sub { font-size: 13px; color: #6b7280; margin-top: 6px; }
+.course-progress-bar { height: 8px; background: #eef2f7; border-radius: 8px; margin-top: 8px; overflow: hidden; }
+.course-progress-fill { height: 100%; background: #6c63ff; border-radius: 8px; }
+.course-continue-btn { margin-left: 16px; }
+
+/* Responsive: stack earlier to avoid cramping on medium screens */
+@media (max-width: 1000px) {
+  .dashboard-grid { flex-direction: column; }
+  .metrics-row { flex-wrap: wrap; gap: 12px; }
+  .metric-card { flex: 1 1 200px; }
+}
+
+@media (max-width: 720px) {
+  :root { --content-gap: 8px; }
+  .metric-count { font-size: 20px; }
+  .main-content { padding-left: calc(var(--content-gap) + 0.75rem); }
 }
 
 .auth-form {
@@ -187,8 +246,9 @@ body {
   }
 }
 
-.home, .courses, .course-details, .lesson, .quiz, .profile, .admin-dashboard {
-  max-width: 900px;
+.home, .dashboard, .courses, .course-details, .lesson, .quiz, .profile, .admin-dashboard {
+  /* give dashboard and other large pages more horizontal room */
+  max-width: 1200px;
   margin: 2rem auto;
   background: #fff;
   border-radius: 8px;
@@ -257,4 +317,12 @@ button:hover {
   color: #d32f2f;
   font-weight: 500;
   margin-top: 1rem;
+}
+
+/* Safety: ensure page-level containers inside .main-content do not add extra left margins
+   which can cause content to appear underneath the fixed sidebar. Child elements should
+   rely on the global .main-content offset instead of setting their own large left margins. */
+.main-content > * {
+  margin-left: 0; /* reset any accidental left offsets */
+  box-sizing: border-box;
 }

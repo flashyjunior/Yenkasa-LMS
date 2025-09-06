@@ -1,7 +1,10 @@
 import axios from 'axios';
 
+// Always read backend API base URL from .env file
+const apiBase = process.env.REACT_APP_API_BASE || 'http://localhost:5124';
+
 const api = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE || '',
+  baseURL: apiBase,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -53,3 +56,9 @@ api.interceptors.response.use((res) => {
 }, (err) => Promise.reject(err));
 
 export default api;
+
+export const getCourseReviews = (courseId: number) =>
+  api.get(`/api/lms/courses/${courseId}/reviews`);
+
+export const addCourseReview = (courseId: number, review: { rating: number; comment: string }) =>
+  api.post(`/api/lms/courses/${courseId}/reviews`, review);

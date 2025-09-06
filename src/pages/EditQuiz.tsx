@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import api from '../api';
 import Modal from '../components/Modal';
 import Switch from '@mui/material/Switch';
+import { useAuth } from '../contexts/AuthContext';
 
 const EditQuiz: React.FC = () => {
   // ...existing code...
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { hasPrivilege } = useAuth();
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState<string[]>([]);
   const [correctOptionIndex, setCorrectOptionIndex] = useState(0);
@@ -22,10 +24,10 @@ const EditQuiz: React.FC = () => {
     const handleTogglePublish = async () => {
     try {
       if (!published) {
-        await axios.post(`/api/lms/lessons/${id}/publish`);
+  await api.post(`/api/lms/lessons/${id}/publish`);
         setPublished(true);
       } else {
-        await axios.post(`/api/lms/lessons/${id}/unpublish`);
+  await api.post(`/api/lms/lessons/${id}/unpublish`);
         setPublished(false);
       }
     } catch {
@@ -34,7 +36,7 @@ const EditQuiz: React.FC = () => {
   };
 
   useEffect(() => {
-    axios.get(`/api/lms/admin/quizzes/${id}`)
+  api.get(`/api/lms/admin/quizzes/${id}`)
     .then(res => {
       const data = res.data as { question: string; options: string[]; correctOptionIndex: number; lessonId: number; lessonTitle?: string };
       setQuestion(data.question || '');
@@ -52,7 +54,7 @@ const EditQuiz: React.FC = () => {
       setLoading(false);
     });
     // Fetch only published lessons for dropdown
-    axios.get('/api/lms/lessons')
+  api.get('/api/lms/lessons')
       .then(res => setLessons((res.data as any[]).filter(l => l.published)))
       .catch(() => setLessons([]));
   }, [id]);
@@ -61,7 +63,7 @@ const EditQuiz: React.FC = () => {
     e.preventDefault();
     setError(null);
     try {
-      await axios.put(`/api/lms/admin/quizzes/${id}`,
+      await api.put(`/api/lms/admin/quizzes/${id}`,
         {
           id,
           question,
@@ -157,8 +159,8 @@ const EditQuiz: React.FC = () => {
             onClose={() => setShowDeleteModal(false)}
             onConfirm={async () => {
               try {
-                await axios.delete(`/api/lms/quizzes/${id}`);
-                navigate('/admin-quizzes');
+                await api.delete(`/api/lms/quizzes/${id}`);
+                if (hasPrivilege && hasPrivilege('ViewAdminMenu')) navigate('/admin-quizzes');
               } catch {
                 setError('Failed to delete quiz.');
               }

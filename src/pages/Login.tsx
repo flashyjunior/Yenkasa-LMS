@@ -26,8 +26,8 @@ const Login: React.FC = () => {
       if (data && data.token) {
         // persist token immediately for subsequent requests
         setAuthToken(data.token);
-        login(data.token, data.refreshToken, data.userName ?? username);
-        navigate('/', { replace: true });
+        // forward fullName and profileImageUrl if provided by backend
+        await login(data.token, data.refreshToken, data.userName ?? username, (data as any).fullName, (data as any).profileImageUrl);
       } else {
         setError('Invalid credentials');
       }
@@ -48,8 +48,8 @@ const Login: React.FC = () => {
 
           <form onSubmit={handleSubmit} className="login-form" noValidate>
             <label>
-              <span className="label-text">Email address</span>
-              <input type="text" placeholder="Email address" value={username} onChange={e => setUsername(e.target.value)} required />
+              <span className="label-text">Username or email</span>
+              <input type="text" placeholder="Username or email" value={username} onChange={e => setUsername(e.target.value)} required />
             </label>
 
             <label>
@@ -58,8 +58,12 @@ const Login: React.FC = () => {
             </label>
 
             <div className="login-actions">
-              <button type="submit" className="btn-primary">Sign in</button>
+              <button type="submit" className="btn-primary">Login</button>
+              <button type="button" onClick={() => navigate('/register')}>Sign up</button>
             </div>
+              <div style={{ marginTop: 8 }}>
+                <button type="button" className="link-like" onClick={() => navigate('/forgot-password')}>Forgot password?</button>
+              </div>
 
             {error && <div className="login-error" role="alert">{error}</div>}
           </form>

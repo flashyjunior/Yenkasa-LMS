@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Modal from '../components/Modal';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api';
+import { useAuth } from '../contexts/AuthContext';
 import Switch from '@mui/material/Switch';
 interface Course {
   id: number;
@@ -12,6 +13,7 @@ interface Course {
 const EditLesson: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { hasPrivilege } = useAuth();
   const [title, setTitle] = useState('');
   const [videoUrl, setVideoUrl] = useState('');
   const [courseId, setCourseId] = useState('');
@@ -60,7 +62,8 @@ const EditLesson: React.FC = () => {
         const l: LessonApi = res.data ?? {};
         // support both camelCase and PascalCase shapes from API
         setTitle(l.title ?? l.Title ?? '');
-        setVideoUrl(l.content ?? l.Content ?? l.videoUrl ?? l.VideoUrl ?? '');
+  // accept both Content and VideoUrl shapes
+  setVideoUrl(l.videoUrl ?? l.VideoUrl ?? l.content ?? l.Content ?? '');
         setCourseId(String(l.courseId ?? l.CourseId ?? ''));
         setPublished(Boolean(l.published ?? l.Published ?? false));
         setPassMark(Number(l.passMark ?? l.PassMark ?? 50));
@@ -73,12 +76,32 @@ const EditLesson: React.FC = () => {
       }
     })();
 
-    // Fetch only published courses for dropdown
+    // Fetch courses for dropdown. API may return either an array or a paginated { items, total } shape.
     (async () => {
       try {
         const res = await api.get('/api/lms/admin/courses');
-        const data = Array.isArray(res.data) ? (res.data as Course[]) : [];
-        setCourses(data.filter(c => c.published));
+        const d: any = res.data;
+        let list: Course[] = [];
+        if (Array.isArray(d)) list = d as Course[];
+        else if (d && Array.isArray(d.items)) list = d.items as Course[];
+
+        // If editing an existing lesson, ensure its current course is present in the list even if unpublished
+        if (courseId && courseId !== '') {
+          const exists = list.some(c => String(c.id) === String(courseId));
+          if (!exists) {
+            try {
+              const single = await api.get(`/api/lms/admin/courses/${courseId}`);
+              const sc: any = single?.data;
+              if (sc && (sc.id !== undefined)) list.unshift({ id: sc.id, title: sc.title || 'Untitled', published: Boolean(sc.published) });
+            } catch {
+              // ignore
+            }
+          }
+        }
+
+        // Prefer showing published courses first but keep unpublished ones (so admins can keep selection)
+        list.sort((a,b) => (b.published === a.published) ? a.title.localeCompare(b.title) : (b.published ? 1 : -1));
+        setCourses(list);
       } catch {
         setCourses([]);
       }
@@ -93,6 +116,7 @@ const EditLesson: React.FC = () => {
       const payload: any = {
         id: Number(id),
         Title: title,
+        VideoUrl: videoUrl,
         Content: videoUrl,
         CourseId: Number(courseId),
         Published: published,
@@ -101,7 +125,7 @@ const EditLesson: React.FC = () => {
       if (duration !== '') payload.Duration = Number(duration);
 
       await api.put(`/api/lms/lessons/${id}`, payload);
-      navigate('/admin-lessons');
+  if (hasPrivilege && hasPrivilege('ViewAdminMenu')) navigate('/admin-lessons');
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.response?.data || 'Failed to update lesson.');
     }
@@ -206,7 +230,7 @@ const EditLesson: React.FC = () => {
                     onConfirm={async () => {
                       try {
                         await api.delete(`/api/lms/admin/lessons/${id}`);
-                        navigate('/admin');
+                        if (hasPrivilege && hasPrivilege('ViewAdminMenu')) navigate('/admin');
                       } catch {
                         setError('Failed to delete lesson.');
                       }
