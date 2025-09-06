@@ -42,8 +42,38 @@ namespace LMS.Data
                 context.SaveChanges();
 
                 // Seed Quizzes
-                var quiz = new Quiz { Question = "What is LMS?", Options = new List<string> { "Learning Management System", "Library Management System", "Logistics Management System" }, CorrectOptionIndex = 0, LessonId = lesson.Id };
+                var quiz = new Quiz { Question = "What is LMS?", Options = new List<string> { "Learning Management System", "Library Management System", "Logistics Management System" }, CorrectOptionIndex = 0, CourseId = lesson.Id };
                 context.Quizzes.Add(quiz);
+                context.SaveChanges();
+            }
+
+            // Seed Email Templates
+            if (!context.EmailTemplates.Any())
+            {
+                context.EmailTemplates.Add(new LMS.Models.EmailTemplate
+                {
+                    Key = "ForgotPassword",
+                    Subject = "Reset your password",
+                    Body = "<p>Hello {{userName}},</p><p>Click <a href=\"{{resetLink}}\">here</a> to reset your password.</p>",
+                    CreatedAt = DateTime.UtcNow
+                });
+
+                context.EmailTemplates.Add(new LMS.Models.EmailTemplate
+                {
+                    Key = "WelcomeAfterSignup",
+                    Subject = "Welcome to LMS",
+                    Body = "<p>Hi {{userName}},</p><p>Welcome to our learning platform. Start by browsing courses.</p>",
+                    CreatedAt = DateTime.UtcNow
+                });
+
+                context.EmailTemplates.Add(new LMS.Models.EmailTemplate
+                {
+                    Key = "QuizCompletionCertificate",
+                    Subject = "Congratulations - Certificate Available",
+                    Body = "<p>Hi {{userName}},</p><p>You completed {{courseName}}. Download your certificate <a href=\"{{certificateLink}}\">here</a>.</p>",
+                    CreatedAt = DateTime.UtcNow
+                });
+
                 context.SaveChanges();
             }
         }

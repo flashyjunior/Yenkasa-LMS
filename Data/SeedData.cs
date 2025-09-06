@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using LMS.Models;
+using LMS.Seed;
 
 namespace LMS.Data
 {
@@ -78,6 +79,20 @@ namespace LMS.Data
                 {
                     await userManager.AddToRoleAsync(studentUser, "Student");
                 }
+            }
+
+            // Run the older DbInitializer.Seed to populate courses, lessons, quizzes and our new email templates
+            try
+            {
+                var context = serviceProvider.GetRequiredService<LmsDbContext>();
+                var userManagerSvc = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                var roleManagerSvc = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                // Call new initializer that seeds courses and email templates
+                LMS.Data.DbInitializer.Seed(context, userManagerSvc, roleManagerSvc);
+            }
+            catch
+            {
+                // ignore seeding errors here; environment may not have DB available at this point
             }
         }
     }

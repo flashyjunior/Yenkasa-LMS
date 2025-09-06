@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using LMS.Data;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using LMS.Models;
@@ -16,12 +17,26 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Data Protection: persist keys to a local folder so encrypted values can be unprotected across restarts
+var dpKeyPath = builder.Configuration.GetValue<string>("DataProtection:KeyPath");
+if (string.IsNullOrEmpty(dpKeyPath))
+{
+    dpKeyPath = System.IO.Path.Combine(builder.Environment.ContentRootPath, "DataProtection-Keys");
+}
+// ensure directory exists
+System.IO.Directory.CreateDirectory(dpKeyPath);
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new System.IO.DirectoryInfo(dpKeyPath));
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<LmsDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDefaultIdentity<LMS.Models.ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<LmsDbContext>();
+
+// SignalR
+builder.Services.AddSignalR();
 
 // JWT Authentication configuration
 var jwtSettings = builder.Configuration.GetSection("Jwt");
@@ -47,17 +62,22 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("AllowFrontend",
+    builder =>
     {
-        policy
-          .AllowAnyOrigin()//.WithOrigins("http://localhost:3000") // or Use AllowAnyOrigin during dev
+        builder
+          .WithOrigins("http://localhost:3000")//.WithOrigins("http://localhost:3000") // or Use AllowAnyOrigin during dev
           .AllowAnyMethod()
-          .AllowAnyHeader();// ensure "Authorization" allowed
-          //.AllowCredentials();
+          .AllowAnyHeader()// ensure "Authorization" allowed
+          .AllowCredentials();
+          // Note: AllowCredentials is not compatible with AllowAnyOrigin in ASP.NET Core; if you need credentials, replace AllowAnyOrigin with specific origins
     });
 });
+// Register email services
+builder.Services.AddScoped<LMS.Services.EmailTemplateService>();
+builder.Services.AddScoped<LMS.Services.EmailSender>();
 var app = builder.Build();
-app.UseCors(); // ensure cors middleware is enabled
+app.UseCors("AllowFrontend"); // ensure cors middleware is enabled
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -81,6 +101,9 @@ app.MapControllerRoute(
 // Map attribute-routed API controllers
 app.MapControllers();
 
+// Map SignalR hubs
+app.MapHub<LMS.Hubs.QaHub>("/hubs/qa");
+
 // Seed database
 using (var scope = app.Services.CreateScope())
 {
@@ -89,3 +112,6 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+// Expose Program class for integration tests (WebApplicationFactory<T>)
+public partial class Program { }

@@ -1,0 +1,24 @@
+Timestamp: 2025-08-16T23:45:32.1207300Z
+Marker: pid=14508 uid=08bc5f7d-d94f-4501-a4af-65584b901bab
+Found: 02cb7b13-7864-4e20-a39c-d4a6ab02006e.jpg - 5521 bytes
+ System.Drawing: success (256x256)
+  Attempt: raw: OK
+  Final: XImage created (pix 256x256)
+Found: 3cd8cf1a-e43f-4763-b25f-bb5c1337c980.jpg - 15953 bytes
+ System.Drawing: success (256x256)
+  Attempt: raw: OK
+  Final: XImage created (pix 256x256)
+Found: b8dbfea6-b108-454e-b803-f58d990eac2a.jpg - 6471 bytes
+ System.Drawing: success (256x256)
+  Attempt: raw: OK
+  Final: XImage created (pix 256x256)
+Found: diagnostic.txt - 0 bytes
+ System.Drawing: FAIL - Out of memory.
+Found: logo.jpg - 5685 bytes
+ System.Drawing: success (204x192)
+  Attempt: raw: OK
+  Final: XImage created (pix 204x192)
+Found: signature.jpg - 49697 bytes
+ System.Drawing: success (2143x1498)
+  Attempt: raw: OK
+  Final: XImage created (pix 2143x1498)

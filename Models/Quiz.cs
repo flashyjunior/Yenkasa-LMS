@@ -4,12 +4,12 @@ namespace LMS.Models
 {
     public class Quiz
     {
-        public int Id { get; set; }
-        public string? Question { get; set; }
-        public List<string> Options { get; set; } = new List<string>();
-        public int CorrectOptionIndex { get; set; }
-        public int LessonId { get; set; }
-        public bool Published { get; set; } = false;
+    public int Id { get; set; }
+    public int CourseId { get; set; } // Changed from LessonId to CourseId
+    public string? Question { get; set; }
+    public List<string>? Options { get; set; }
+    public int CorrectOptionIndex { get; set; }
+    public bool Published { get; set; }
 
     }
 

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "esxFTMVnsHQ=",
+  "dgSpecHash": "8UBzc7dWYBM=",
   "success": true,
   "projectFilePath": "E:\\DEVELOPMENTS\\FLASH_DEVS\\PPAG\\Devs\\LMS\\LMS.csproj",
   "expectedPackageFiles": [
@@ -54,9 +54,13 @@
     "C:\\Users\\micha\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\8.0.1\\microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.13.1\\microsoft.identitymodel.tokens.8.13.1.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\microsoft.sqlserver.server\\1.0.0\\microsoft.sqlserver.server.1.0.0.nupkg.sha512",
-    "C:\\Users\\micha\\.nuget\\packages\\microsoft.win32.systemevents\\6.0.0\\microsoft.win32.systemevents.6.0.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\microsoft.win32.systemevents\\7.0.0\\microsoft.win32.systemevents.7.0.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
-    "C:\\Users\\micha\\.nuget\\packages\\sixlabors.imagesharp\\3.1.5\\sixlabors.imagesharp.3.1.5.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\pdfsharpcore\\1.3.67\\pdfsharpcore.1.3.67.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\qrcoder\\1.5.0\\qrcoder.1.5.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\sharpziplib\\1.4.2\\sharpziplib.1.4.2.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\sixlabors.fonts\\1.0.0-beta17\\sixlabors.fonts.1.0.0-beta17.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\sixlabors.imagesharp\\1.0.4\\sixlabors.imagesharp.1.0.4.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\system.clientmodel\\1.0.0\\system.clientmodel.1.0.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\system.codedom\\6.0.0\\system.codedom.6.0.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\system.collections.immutable\\7.0.0\\system.collections.immutable.7.0.0.nupkg.sha512",
@@ -68,7 +72,7 @@
     "C:\\Users\\micha\\.nuget\\packages\\system.composition.typedparts\\7.0.0\\system.composition.typedparts.7.0.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\system.configuration.configurationmanager\\6.0.1\\system.configuration.configurationmanager.6.0.1.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\system.diagnostics.diagnosticsource\\6.0.1\\system.diagnostics.diagnosticsource.6.0.1.nupkg.sha512",
-    "C:\\Users\\micha\\.nuget\\packages\\system.drawing.common\\6.0.0\\system.drawing.common.6.0.0.nupkg.sha512",
+    "C:\\Users\\micha\\.nuget\\packages\\system.drawing.common\\7.0.0\\system.drawing.common.7.0.0.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\system.formats.asn1\\9.0.8\\system.formats.asn1.9.0.8.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\system.identitymodel.tokens.jwt\\8.13.1\\system.identitymodel.tokens.jwt.8.13.1.nupkg.sha512",
     "C:\\Users\\micha\\.nuget\\packages\\system.io.pipelines\\7.0.0\\system.io.pipelines.7.0.0.nupkg.sha512",
@@ -92,25 +96,13 @@
   ],
   "logs": [
     {
-      "code": "NU1903",
+      "code": "NU1603",
       "level": "Warning",
-      "message": "Package 'SixLabors.ImageSharp' 3.1.5 has a known high severity vulnerability, https://github.com/advisories/GHSA-2cmq-823j-5qj8",
+      "message": "LMS depends on QRCoder (>= 1.4.6) but QRCoder 1.4.6 was not found. QRCoder 1.5.0 was resolved instead.",
       "projectPath": "E:\\DEVELOPMENTS\\FLASH_DEVS\\PPAG\\Devs\\LMS\\LMS.csproj",
       "warningLevel": 1,
       "filePath": "E:\\DEVELOPMENTS\\FLASH_DEVS\\PPAG\\Devs\\LMS\\LMS.csproj",
-      "libraryId": "SixLabors.ImageSharp",
-      "targetGraphs": [
-        "net9.0"
-      ]
-    },
-    {
-      "code": "NU1902",
-      "level": "Warning",
-      "message": "Package 'SixLabors.ImageSharp' 3.1.5 has a known moderate severity vulnerability, https://github.com/advisories/GHSA-rxmq-m78w-7wmc",
-      "projectPath": "E:\\DEVELOPMENTS\\FLASH_DEVS\\PPAG\\Devs\\LMS\\LMS.csproj",
-      "warningLevel": 1,
-      "filePath": "E:\\DEVELOPMENTS\\FLASH_DEVS\\PPAG\\Devs\\LMS\\LMS.csproj",
-      "libraryId": "SixLabors.ImageSharp",
+      "libraryId": "QRCoder",
       "targetGraphs": [
         "net9.0"
       ]

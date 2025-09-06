@@ -1,0 +1,36 @@
+Note: Unnecessary use of -X or --request, POST is already inferred.
+* Host localhost:5124 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0*   Trying [::1]:5124...
+* Connected to localhost (::1) port 5124
+* using HTTP/1.x
+> POST /api/lms/login HTTP/1.1
+> Host: localhost:5124
+> User-Agent: curl/8.14.1
+> Accept: */*
+> Content-Length: 48
+> 
+} [48 bytes data]
+* upload completely sent off: 48 bytes
+< HTTP/1.1 415 Unsupported Media Type
+< Content-Type: application/problem+json; charset=utf-8
+< Date: Fri, 22 Aug 2025 10:47:22 GMT
+< Server: Kestrel
+< Transfer-Encoding: chunked
+< 
+{ [187 bytes data]
+100   224    0   176  100    48    842    229 --:--:-- --:--:-- --:--:--  1092
+* Connection #0 to host localhost left intact
+Note: Unnecessary use of -X or --request, POST is already inferred.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:01 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:02 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:03 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:04 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:05 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:06 --:--:--     0  0     0    0     0    0     0      0      0 --:--:--  0:00:07 --:--:--     0* Could not resolve host: application
+* shutting down connection #1
+curl: (6) Could not resolve host: application
+Note: Unnecessary use of -X or --request, POST is already inferred.
+* URL rejected: Bad hostname
+* closing connection #-1
+curl: (3) URL rejected: Bad hostname

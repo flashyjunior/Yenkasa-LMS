@@ -22,6 +22,37 @@ namespace LMS.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CourseReview", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CourseReviews");
+                });
+
             modelBuilder.Entity("LMS.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -239,6 +270,38 @@ namespace LMS.Migrations
                     b.ToTable("CourseMaterials");
                 });
 
+            modelBuilder.Entity("LMS.Models.EmailTemplate", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Body")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Key")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Subject")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Key")
+                        .IsUnique()
+                        .HasFilter("[Key] IS NOT NULL");
+
+                    b.ToTable("EmailTemplates");
+                });
+
             modelBuilder.Entity("LMS.Models.Lesson", b =>
                 {
                     b.Property<int>("Id")
@@ -444,11 +507,13 @@ namespace LMS.Migrations
                     b.Property<int>("CorrectOptionIndex")
                         .HasColumnType("int");
 
-                    b.Property<int>("LessonId")
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LessonId")
                         .HasColumnType("int");
 
                     b.PrimitiveCollection<string>("Options")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Published")
@@ -475,14 +540,14 @@ namespace LMS.Migrations
                     b.Property<string>("AnswersJson")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DateTaken")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Grade")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LessonId")
-                        .HasColumnType("int");
 
                     b.Property<int>("PassMark")
                         .HasColumnType("int");
@@ -581,6 +646,43 @@ namespace LMS.Migrations
                         .IsUnique();
 
                     b.ToTable("RolePrivileges");
+                });
+
+            modelBuilder.Entity("LMS.Models.SmtpConfig", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("EnableSsl")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("From")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SmtpHost")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("SmtpPort")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("User")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SmtpHost");
+
+                    b.ToTable("SmtpConfigs");
                 });
 
             modelBuilder.Entity("LMS.Models.UserBadge", b =>
@@ -782,9 +884,7 @@ namespace LMS.Migrations
                 {
                     b.HasOne("LMS.Models.Lesson", null)
                         .WithMany("Quizzes")
-                        .HasForeignKey("LessonId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("LessonId");
                 });
 
             modelBuilder.Entity("LMS.Models.RefreshToken", b =>

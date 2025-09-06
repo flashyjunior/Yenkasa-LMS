@@ -1,0 +1,5 @@
+"Id","Username","FullName","Email","Roles","IsActive","ProfileImageUrl"
+"3da839ad-fbb4-4919-bc4c-53baa926aba5","instructor","System Administrator","instructor20@lms.com","Instructor","Active","/uploads/b8dbfea6-b108-454e-b803-f58d990eac2a.jpg"
+"5b6aac38-6492-4437-a05b-fe73d6a52ca2","michael","Michael Marmah","michael.martey20@live.com","Admin","Active","/uploads/02cb7b13-7864-4e20-a39c-d4a6ab02006e.jpg"
+"89316094-d7ba-45a6-9ad4-8944817fbbe8","student","","student@lms.com","Student","Active",""
+"e45bf1a0-88b8-4d58-a0e3-01d2ce810161","admin","","admin@lms.com","Admin","Active","/uploads/3cd8cf1a-e43f-4763-b25f-bb5c1337c980.jpg"

@@ -12,5 +12,9 @@ namespace LMS.Models
 
     // URL to profile image
     public string? ProfileImageUrl { get; set; }
+    
+    // Additional profile fields
+    public string? Sex { get; set; }
+    public System.DateTime? DateOfBirth { get; set; }
     }
 }

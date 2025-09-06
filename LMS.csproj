@@ -4,6 +4,10 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <!-- Temporary: disable apphost generation during active development to avoid file-lock errors
+      when the running process holds the published exe (MSB3026/MSB3027). Remove this once
+      developers stop the running instance before building, or when publishing for release. -->
+    <UseAppHost>false</UseAppHost>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,9 +19,24 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  <!-- Design package needed to generate and apply EF migrations at build/runtime -->
+  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
+    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    <PrivateAssets>all</PrivateAssets>
+  </PackageReference>
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="8.13.1" />
-  <PackageReference Include="SixLabors.ImageSharp" Version="3.1.5" />
+  <!-- Use System.Drawing for server-side image normalization to avoid ImageSharp runtime mismatches
+       PdfSharpCore carries its own ImageSharp dependency; removing the explicit ImageSharp reference
+       reduces version conflicts. -->
+  <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.13.1" />
+  <PackageReference Include="PdfSharpCore" Version="1.3.67" />
+  <PackageReference Include="QRCoder" Version="1.4.6" />
+  </ItemGroup>
+
+  <!-- Exclude any test projects or source under Tests/ from the main project compilation -->
+  <ItemGroup>
+    <Compile Remove="Tests\**\*.cs" />
   </ItemGroup>
 
 </Project>
