@@ -7,32 +7,41 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+  backend:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0' # Change if using a different .NET version
+
+      - name: Restore dependencies
+        run: dotnet restore ./LMS.csproj
+
+      - name: Build
+        run: dotnet build ./LMS.csproj --configuration Release --no-restore
+
+  frontend:
+    runs-on: ubuntu-latest
+    needs: backend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: npm install
+        working-directory: ./lms-client
 
-      - name: Run tests
-        run: npm test
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Deploy to Production
-        run: echo "Add your deployment script here"
+      - name: Build frontend
+        run: npm run build
+        working-directory: ./lms-client
