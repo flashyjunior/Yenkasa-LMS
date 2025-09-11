@@ -13,10 +13,10 @@ const EditQuiz: React.FC = () => {
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState<string[]>([]);
   const [correctOptionIndex, setCorrectOptionIndex] = useState(0);
-  const [lessonId, setLessonId] = useState('');
-  const [lessonTitle, setLessonTitle] = useState('');
+  const [courseId, setCourseId] = useState('');
+  const [courseTitle, setCourseTitle] = useState('');
   const [published, setPublished] = useState(false);
-  const [lessons, setLessons] = useState<any[]>([]);
+  const [courses, setCourses] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -38,25 +38,27 @@ const EditQuiz: React.FC = () => {
   useEffect(() => {
   api.get(`/api/lms/admin/quizzes/${id}`)
     .then(res => {
-      const data = res.data as { question: string; options: string[]; correctOptionIndex: number; lessonId: number; lessonTitle?: string };
+      const data = res.data as { question: string; options: string[]; correctOptionIndex: number; courseId: number; courseTitle?: string };
       setQuestion(data.question || '');
-      // Ensure at least two options for editing
       let opts = data.options || [];
       while (opts.length < 2) opts.push('');
       setOptions(opts);
       setCorrectOptionIndex(data.correctOptionIndex ?? 0);
-      setLessonId(data.lessonId?.toString() || '');
-      setLessonTitle(data.lessonTitle || '');
+      setCourseId(data.courseId?.toString() || '');
+      setCourseTitle(data.courseTitle || '');
       setLoading(false);
     })
     .catch(() => {
       setError('Failed to load quiz.');
       setLoading(false);
     });
-    // Fetch only published lessons for dropdown
-  api.get('/api/lms/lessons')
-      .then(res => setLessons((res.data as any[]).filter(l => l.published)))
-      .catch(() => setLessons([]));
+  api.get('/api/lms/courses')
+    .then(res => {
+      const raw: any = res.data;
+      const arr = Array.isArray(raw) ? raw : (raw && Array.isArray((raw as any).items) ? (raw as any).items : []);
+      setCourses(arr as any[]);
+    })
+    .catch(() => setCourses([]));
   }, [id]);
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -69,7 +71,7 @@ const EditQuiz: React.FC = () => {
           question,
           options,
           correctOptionIndex,
-          lessonId: Number(lessonId)
+          courseId: Number(courseId)
         }
       );
       navigate(-1);
@@ -97,7 +99,11 @@ const EditQuiz: React.FC = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <div style={{ marginBottom: 16 }}>
-          <b>Lesson:</b> {lessonTitle || '-'}
+          <label htmlFor="course-select"><b>Course:</b></label>
+          <select id="course-select" value={courseId} onChange={e => setCourseId(e.target.value)} required>
+            <option value="">Select Course</option>
+            {courses.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
+          </select>
         </div>
         <div style={{ marginBottom: 16 }}>
           <label>Question</label>
