@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import api from '../api';
 
 const CreateQuiz: React.FC = () => {
-  const [lessonId, setLessonId] = useState('');
-  const [lessons, setLessons] = useState<any[]>([]);
+  const [courseId, setCourseId] = useState('');
+  const [courses, setCourses] = useState<any[]>([]);
   const [question, setQuestion] = useState('');
   const [options, setOptions] = useState(['', '', '', '']);
   const [correctOptionIndex, setCorrectOptionIndex] = useState(0);
@@ -11,11 +11,11 @@ const CreateQuiz: React.FC = () => {
   const [error, setError] = useState('');
 
   useEffect(() => {
-  api.get('/api/lms/lessons').then(res => {
-    const raw: any = res.data;
-    const arr = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.items) ? raw.items : []);
-    setLessons(arr as any[]);
-  });
+    api.get('/api/lms/courses').then(res => {
+      const raw: any = res.data;
+      const arr = Array.isArray(raw) ? raw : (raw && Array.isArray(raw.items) ? raw.items : []);
+      setCourses(arr as any[]);
+    });
   }, []);
 
   const handleOptionChange = (idx: number, value: string) => {
@@ -28,9 +28,9 @@ const CreateQuiz: React.FC = () => {
     e.preventDefault();
     setError('');
     try {
-  await api.post('/api/lms/quizzes', { lessonId, question, options, correctOptionIndex });
+      await api.post('/api/lms/quizzes', { courseId, question, options, correctOptionIndex });
       setSuccess(true);
-      setLessonId('');
+      setCourseId('');
       setQuestion('');
       setOptions(['', '', '', '']);
       setCorrectOptionIndex(0);
@@ -43,9 +43,9 @@ const CreateQuiz: React.FC = () => {
     <div className="card fade-in">
       <h2>Create Quiz</h2>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-        <select value={lessonId} onChange={e => setLessonId(e.target.value)} required>
-          <option value="">Select Lesson</option>
-          {lessons.map(l => <option key={l.id} value={l.id}>{l.title}</option>)}
+        <select value={courseId} onChange={e => setCourseId(e.target.value)} required>
+          <option value="">Select Course</option>
+          {courses.map(c => <option key={c.id} value={c.id}>{c.title}</option>)}
         </select>
         <input type="text" placeholder="Question" value={question} onChange={e => setQuestion(e.target.value)} required />
         {options.map((opt, idx) => (

@@ -11,8 +11,6 @@ E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\obj\Debug\net9.0\LMS.RazorAssemblyInfo.
 E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\obj\Debug\net9.0\LMS.sourcelink.json
 E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\appsettings.Development.json
 E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\appsettings.json
-E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\lms-client\build\asset-manifest.json
-E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\lms-client\build\manifest.json
 E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\lms-client\login_response.json
 E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\lms-client\package-lock.json
 E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\lms-client\package.json
@@ -325,3 +323,8 @@ E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\obj\Debug\net9.0\refint\LMS.dll
 E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\obj\Debug\net9.0\LMS.pdb
 E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\obj\Debug\net9.0\LMS.genruntimeconfig.cache
 E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\obj\Debug\net9.0\ref\LMS.dll
+E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\login_response.json
+E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\public\manifest.json
+E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\tsconfig.json
+E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\lms-client\build\asset-manifest.json
+E:\DEVELOPMENTS\FLASH_DEVS\PPAG\Devs\LMS\bin\Debug\net9.0\lms-client\build\manifest.json
